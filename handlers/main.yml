@@ -1,0 +1,13 @@
+---
+
+- name: start devpi
+  supervisorctl: name=devpi-server state=present
+
+- name: restart devpi
+  supervisorctl: name=devpi-server state=update
+
+- name: restart rsyslog
+  service: name=rsyslog state=restarted
+
+- name: reload rsyslog
+  service: name=rsyslog state=reloaded

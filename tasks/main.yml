@@ -1,0 +1,24 @@
+---
+- name: create devpi group
+  group: name=devpi state=present
+
+- name: create devpi user
+  user: >
+    name=devpi
+    group=devpi
+    password=no
+    system=yes
+    home=/var/lib/devpi
+    state=present
+
+- name: dirs
+  file: path={{ item }} owner=devpi group=devpi state=directory mode=0755
+  with_items:
+  - /var/lib/devpi
+  - /var/run/devpi
+  - /var/log/devpi
+  notify: restart devpi
+
+- name: install server
+  tags: install-server
+  include: server.yml

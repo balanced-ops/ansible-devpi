@@ -1,0 +1,41 @@
+---
+
+- name: install virtualenv
+  pip: name=virtualenv state=present
+  notify: restart devpi
+
+- name: create the devpi virtualenv
+  command: >
+    virtualenv /var/lib/devpi
+    creates=/var/lib/devpi/bin/python
+
+- name: create the devpi data dir
+  file:
+    dest=/var/lib/devpi/devpi-server-data
+    state=directory
+    owner=devpi
+    group=devpi
+
+- name: install server
+  pip: >
+    name=devpi-server
+    state=present
+    virtualenv=/var/lib/devpi
+  notify: restart devpi
+
+- name: writing supervisor script
+  template: >
+    src=devpi.conf.j2
+    dest={{ supervisord_additional_conf_dir }}/devpi.conf
+    owner=devpi
+    group=devpi
+    mode=0644
+  notify: restart devpi
+
+- name: update devpi supervisor configuration
+  supervisorctl: >
+    name=devpi-server
+    supervisorctl_path={{ supervisord_bin_dir }}/supervisorctl
+    state=started
+  register: sv_out
+  changed_when: sv_out.stdout is defined and sv_out.stdout != ""

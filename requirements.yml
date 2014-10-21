@@ -1,0 +1,13 @@
+---
+
+  - src: git+git@github.com:balanced-cookbooks/ansible-rsyslog.git
+    name: rsyslog
+    version: master
+
+  - src: git+git@github.com:balanced-cookbooks/ansible-base.git
+    version: fe2c4c33abdb7be7329b6ef90ff9b67b601fc2c3
+    name: base
+
+  - src: git+git@github.com:zenoamaro/ansible-supervisord.git
+    version: master
+    name: supervisord
