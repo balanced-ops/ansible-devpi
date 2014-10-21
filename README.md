@@ -1,4 +1,4 @@
-## Jenkins [![Build Status](https://travis-ci.org/balanced-ops/ansible-jenkins.svg)](https://travis-ci.org/balanced-ops/ansible-jenkins)
+## devpi [![Build Status](https://travis-ci.org/balanced-ops/ansible-devpi.svg)](https://travis-ci.org/balanced-ops/ansible-devpi)
 
 ### installing ansible
 ```bash
