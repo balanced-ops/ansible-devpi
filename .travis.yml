@@ -1,0 +1,14 @@
+---
+language: python
+python: 2.7
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq python-apt python-pycurl
+install:
+  - pip install "ansible>=1.8,<1.9"
+before_script:
+  - "printf '[defaults]\nroles_path = ../\n' > ansible.cfg"
+  - echo localhost > inventory
+script:
+  - ansible-playbook --syntax-check -i inventory test.yml
+  - ansible-playbook -i inventory test.yml --connection=local --sudo --skip-tags=aws
