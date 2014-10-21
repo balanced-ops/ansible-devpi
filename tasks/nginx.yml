@@ -1,0 +1,31 @@
+---
+- name: Add nginx ppa
+  apt_repository: repo=ppa:nginx/stable state=present update_cache=yes
+
+- name: Install nginx
+  apt: name=nginx state=present
+
+- name: Copy nginx configuration for devpi
+  template: >
+    src=nginx-devpi.conf.j2
+    dest=/etc/nginx/conf.d/devpi.conf
+  notify: restart nginx
+
+- name: Add nginx logrotate
+  copy: >-
+    src=nginx-logrotate
+    dest=/etc/logrotate.d/nginx
+
+- name: Deactivate the default nginx site
+  file: path=/etc/nginx/sites-enabled/default
+        state=absent
+
+- name: Add site for the app under development
+  template: >
+    src=templates/nginx-devpi.conf.j2
+    dest=/etc/nginx/sites-available/site
+
+- name: Activate the app
+  file: src=/etc/nginx/sites-available/devpi.conf
+        dest=/etc/nginx/sites-enabled/
+        state=link

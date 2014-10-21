@@ -22,3 +22,8 @@
 - name: install server
   tags: install-server
   include: server.yml
+
+- name: install nginx
+  tags: install-nginx
+  include: nginx.yml
+  when: install_nginx
