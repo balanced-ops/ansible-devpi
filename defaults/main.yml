@@ -1,3 +1,5 @@
 ---
-
+# nginx
 install_nginx: true
+# set to whatever you want your CNAME to be
+pypi_server_name: localhost

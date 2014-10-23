@@ -5,12 +5,6 @@
 - name: Install nginx
   apt: name=nginx state=present
 
-- name: Copy nginx configuration for devpi
-  template: >
-    src=nginx-devpi.conf.j2
-    dest=/etc/nginx/conf.d/devpi.conf
-  notify: restart nginx
-
 - name: Add nginx logrotate
   copy: >-
     src=nginx-logrotate
@@ -20,12 +14,40 @@
   file: path=/etc/nginx/sites-enabled/default
         state=absent
 
-- name: Add site for the app under development
-  template: >
-    src=templates/nginx-devpi.conf.j2
-    dest=/etc/nginx/sites-available/site
+# ssl
+- name: Setup ssl dir
+  file: dest=/etc/nginx/ssl state=directory
 
-- name: Activate the app
-  file: src=/etc/nginx/sites-available/devpi.conf
-        dest=/etc/nginx/sites-enabled/
+- name: Setup vandelay certs
+  tags: crt
+  copy: >-
+    dest=/etc/nginx/ssl/vandelay.io.{{ item }}
+    owner=www-data
+    mode='400'
+    content="{{ lookup('citadel','/vandelay.io_certificate/vandelay.io.' + item) }}"
+  with_items:
+    - crt
+    - key
+  notify: restart nginx
+
+# devpi
+- name: Add devpi as a nginx site
+  template: >
+    src=nginx-devpi.conf.j2
+    dest=/etc/nginx/sites-available/devpi-site.conf
+  notify: restart nginx
+
+- name: Enable devpi in nginx
+  file: src=/etc/nginx/sites-available/devpi-site.conf
+        dest=/etc/nginx/sites-enabled/devpi-site.conf
         state=link
+  notify: restart nginx
+
+- name: Setup nginx htpasswd
+  template: >-
+    src=htpasswd.j2
+    dest=/etc/nginx/conf.d/pypi-htpasswd
+    mode=644
+    owner=root
+    group=root
+  notify: restart nginx
