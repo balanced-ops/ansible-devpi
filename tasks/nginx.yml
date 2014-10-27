@@ -14,23 +14,6 @@
   file: path=/etc/nginx/sites-enabled/default
         state=absent
 
-# ssl
-- name: Setup ssl dir
-  file: dest=/etc/nginx/ssl state=directory
-
-- name: Setup vandelay certs
-  tags: crt
-  copy: >-
-    dest=/etc/nginx/ssl/vandelay.io.{{ item }}
-    owner=www-data
-    mode='400'
-    content="{{ lookup('citadel','/vandelay.io_certificate/vandelay.io.' + item) }}"
-  with_items:
-    - crt
-    - key
-  notify: restart nginx
-
-# devpi
 - name: Add devpi as a nginx site
   template: >
     src=nginx-devpi.conf.j2

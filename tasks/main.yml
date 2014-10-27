@@ -12,7 +12,12 @@
     state=present
 
 - name: dirs
-  file: path={{ item }} owner=devpi group=devpi state=directory mode=0755
+  file: >
+    path={{ item }}
+    owner=devpi
+    group=devpi
+    state=directory
+    mode=0755
   with_items:
   - /var/lib/devpi
   - /var/run/devpi

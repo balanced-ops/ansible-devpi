@@ -1,5 +1,8 @@
 ## devpi [![Build Status](https://travis-ci.org/balanced-ops/ansible-devpi.svg)](https://travis-ci.org/balanced-ops/ansible-devpi)
 
+The intention of this playbook is to be used behind an Elastic Load Balancer
+that has SSL termination.
+
 ### installing ansible
 ```bash
 workon ansible-venv

@@ -10,7 +10,7 @@
     creates=/var/lib/devpi/bin/python
 
 - name: create the devpi data dir
-  file:
+  file: >
     dest=/var/lib/devpi/devpi-server-data
     state=directory
     owner=devpi
@@ -18,9 +18,12 @@
 
 - name: install server
   pip: >
-    name=devpi-server
+    name={{ item }}
     state=present
     virtualenv=/var/lib/devpi
+  with_items:
+    - devpi-server
+    - eventlet
   notify: restart devpi
 
 - name: writing supervisor script

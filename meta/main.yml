@@ -20,6 +20,6 @@ dependencies:
     version: master
     name: rsyslog
 
-  - src: git+git@github.com:balanced-cookbooks/ansible-base.git
-    version: master
+  - src: git+git@github.com:balanced-ops/ansible-base.git
+    version: ansible18
     name: base
