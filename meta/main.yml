@@ -15,11 +15,3 @@ dependencies:
   - src: git+git@github.com:zenoamaro/ansible-supervisord.git
     version: master
     name: supervisord
-
-  - src: git+git@github.com:balanced-cookbooks/ansible-rsyslog.git
-    version: master
-    name: rsyslog
-
-  - src: git+git@github.com:balanced-ops/ansible-base.git
-    version: ansible18
-    name: base

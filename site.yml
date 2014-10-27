@@ -6,7 +6,6 @@
     citadel_bucket: 'balanced-citadel'
 
   vars_files:
-    - defaults/secret.yml
     - defaults/main.yml
 
   roles:
