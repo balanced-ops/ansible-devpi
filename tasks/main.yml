@@ -8,7 +8,7 @@
     group=devpi
     password=no
     system=yes
-    home=/var/lib/devpi
+    home={{ devpi_install_dir }}
     state=present
 
 - name: dirs
@@ -19,7 +19,7 @@
     state=directory
     mode=0755
   with_items:
-  - /var/lib/devpi
+  - "{{ devpi_install_dir }}"
   - /var/run/devpi
   - /var/log/devpi
   notify: restart devpi

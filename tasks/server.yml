@@ -6,12 +6,12 @@
 
 - name: create the devpi virtualenv
   command: >
-    virtualenv /var/lib/devpi
-    creates=/var/lib/devpi/bin/python
+    virtualenv {{ devpi_install_dir }}
+    creates={{ devpi_install_dir }}/bin/python
 
 - name: create the devpi data dir
   file: >
-    dest=/var/lib/devpi/devpi-server-data
+    dest={{ devpi_data_dir }}
     state=directory
     owner=devpi
     group=devpi
@@ -20,7 +20,7 @@
   pip: >
     name={{ item }}
     state=present
-    virtualenv=/var/lib/devpi
+    virtualenv={{ devpi_install_dir }}
   with_items:
     - devpi-server
     - eventlet

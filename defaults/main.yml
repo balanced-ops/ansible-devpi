@@ -4,6 +4,10 @@ install_nginx: true
 # set to whatever you want your CNAME to be
 pypi_server_name: localhost
 
+# devpi
+devpi_install_dir: /var/lib/devpi
+devpi_data_dir: "{{ devpi_install_dir }}/devpi-server-data"
+
 # logins
 logins:
   omnibus: "{{ lookup('citadel', '/devpi/omnibus') }}"
