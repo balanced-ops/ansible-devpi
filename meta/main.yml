@@ -12,4 +12,5 @@ galaxy_info:
 
 dependencies:
 
-  - {role: 'git+git@github.com:zenoamaro/ansible-supervisord.git,master,supervisord' }
+  - {role: 'zenoamaro.supervisord'}
+
