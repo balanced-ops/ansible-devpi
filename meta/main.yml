@@ -12,6 +12,4 @@ galaxy_info:
 
 dependencies:
 
-  - src: git+git@github.com:zenoamaro/ansible-supervisord.git
-    version: master
-    name: supervisord
+  - {role: 'git+git@github.com:zenoamaro/ansible-supervisord.git,master,supervisord' }
