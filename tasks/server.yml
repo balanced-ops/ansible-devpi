@@ -6,7 +6,7 @@
 
 - name: create the devpi virtualenv
   command: >
-    virtualenv {{ devpi_install_dir }}
+    virtualenv -p /usr/bin/python {{ devpi_install_dir }}
     creates={{ devpi_install_dir }}/bin/python
 
 - name: create the devpi data dir
