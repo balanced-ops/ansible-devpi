@@ -9,5 +9,5 @@ devpi_install_dir: /var/lib/devpi
 devpi_data_dir: "{{ devpi_install_dir }}/devpi-server-data"
 
 # logins
-logins:
+devpi_logins:
   omnibus: "{{ lookup('citadel', '/devpi/omnibus') }}"
